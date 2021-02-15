@@ -1,0 +1,79 @@
+<!-- tag::all[] -->
+<!-- tag::head[] -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Travel booking platform</title>
+    <link rel="stylesheet" th:href="@{/static/styles.css}"/>
+</head>
+
+<body>
+<h1>Plan your way!</h1>
+<img th:src="@{/images/20190609_174337.jpg}" width="3576" height="1530"/>
+
+<!-- tag::formTag[] -->
+<form method="POST" th:object="${design}">
+    <!-- end::all[] -->
+
+    <span class="validationError"
+          th:if="${#fields.hasErrors('mainMenuList')}"
+          th:errors="*{mainMenuList}">MainMenu Error</span>
+
+    <!-- tag::all[] -->
+    <div class="grid">
+        <!-- end::formTag[] -->
+        <!-- end::head[] -->
+        <div class="mainMenu-group" id="typesOfDeparture">
+            <!-- tag::designateWrap[] -->
+            <h3>Type of departure:</h3>
+            <div th:each="mainMenuList : ${typeofdeparture}">
+                <input name="mainMenuList" type="checkbox" th:value="${mainMenuList.id}"/>
+                <span th:text="${mainMenuList.name}">MAINMENU</span><br/>
+            </div>
+            <!-- end::designateWrap[] -->
+        </div>
+
+        <div class="mainMenu-group" id="airports">
+            <h3>Airport:</h3>
+            <div th:each="mainMenuList : ${airport}">
+                <input name="mainMenuList" type="checkbox" th:value="${mainMenuList.id}"/>
+                <span th:text="${mainMenuList.name}">MAINMENU</span><br/>
+            </div>
+        </div>
+        <div class="mainMenu-group" id="directions">
+            <h3>Direction:</h3>
+            <div th:each="mainMenuList : ${direction}">
+                <input name="mainMenuList" type="checkbox" th:value="${mainMenuList.id}"/>
+                <span th:text="${mainMenuList.name}">MAINMENU</span><br/>
+            </div>
+        </div>
+        <div class="mainMenu-group" id="days">
+            <h3>Stay (days):</h3>
+            <div th:each="mainMenuList : ${stay}">
+                <input name="mainMenuList" type="checkbox" th:value="${mainMenuList.id}" />
+                <span th:text="${mainMenuList.name}">MAINMENU</span><br/>
+            </div>
+        </div>
+        <div class="mainMenu-group" id="contestants">
+            <h3>Number of contestants:</h3>
+            <div th:each="mainMenuList : ${numberofcontestants}">
+                <input name="mainMenuList" type="checkbox" th:value="${mainMenuList.id}" />
+                <span th:text="${mainMenuList.name}">MAINMENU</span><br/>
+            </div>
+        </div>
+
+
+    </div>
+
+          <div>
+
+
+          <button>Submit</button>
+          </div>
+<!--     tag::closeFormTag[]-->
+</form>
+<!-- end::closeFormTag[] -->
+</body>
+</html>
+<!-- end::all[] -->
