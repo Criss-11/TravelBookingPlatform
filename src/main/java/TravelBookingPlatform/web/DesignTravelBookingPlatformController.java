@@ -5,8 +5,10 @@ import TravelBookingPlatform.TravelBookingPlatform;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Arrays;
@@ -14,6 +16,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import TravelBookingPlatform.MainMenu.Type;
+
+import javax.validation.Valid;
 
 @Slf4j
 @Controller
@@ -61,9 +65,20 @@ public void addMainMenuListToModel(Model model) {
         model.addAttribute("design", new TravelBookingPlatform());
         return "design";
     }
+    //tag::processDesignValidated[]
+    @PostMapping
+    public String processDesign(@Valid @ModelAttribute("design") TravelBookingPlatform design, Errors errors, Model model) {
+        if (errors.hasErrors()) {
+            return "design";
+        }
+        log.info("Processing design: " + design);
+
+        return "redirect:/orders/current";
+    }
 
 
- //tag::filterByType[]
+
+    //tag::filterByType[]
     private List<MainMenu> filterByType(
             List<MainMenu> mainMenuList, MainMenu.Type type) {
         return mainMenuList
@@ -72,7 +87,5 @@ public void addMainMenuListToModel(Model model) {
                 .collect(Collectors.toList());
     }
 //end::filterByType[]
-
-
 
 }
